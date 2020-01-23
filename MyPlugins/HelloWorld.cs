@@ -40,22 +40,26 @@ namespace MyPlugins
                     // Plug-in business logic goes here.  
 
                     //Read form attribute values
-                    string firstname = entity.Attributes["firstname"].ToString();
+                    string firstname = string.Empty;
+                    if (entity.Attributes.Contains("firstname")) {
+                         firstname = entity.Attributes["firstname"].ToString();
+                    }
+                    //string firstname = entity.Attributes["firstname"].ToString();
                     string lastname = entity.Attributes["lastname"].ToString();
 
 
                     //Asign data to attribute.
-                    entity.Attributes.Add("description","Hello World"+firstname+lastname);
+                    entity.Attributes.Add("description","Hello World "+firstname+lastname);
                 }
 
                 catch (FaultException<OrganizationServiceFault> ex)
                 {
-                    throw new InvalidPluginExecutionException("An error occurred in FollowUpPlugin.", ex);
+                    throw new InvalidPluginExecutionException("An error occurred in HelloWorldPlugin.", ex);
                 }
 
                 catch (Exception ex)
                 {
-                    tracingService.Trace("FollowUpPlugin: {0}", ex.ToString());
+                    tracingService.Trace("HelloWorldPlugin: {0}", ex.ToString());
                     throw;
                 }
             }
