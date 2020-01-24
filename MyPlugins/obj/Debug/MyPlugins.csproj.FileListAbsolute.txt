@@ -17,7 +17,6 @@ C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\bin\Debug\Microsoft.Xrm.Sdk.Wo
 C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\bin\Debug\Microsoft.Xrm.Tooling.Connector.xml
 C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\bin\Debug\Newtonsoft.Json.xml
 C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\obj\Debug\MyPlugins.csprojAssemblyReference.cache
-C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\obj\Debug\MyPlugins.csproj.CoreCompileInputs.cache
 C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\obj\Debug\MyPlugins.csproj.CopyComplete
 C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\obj\Debug\MyPlugins.dll
 C:\Users\a0204\OneDrive\Documents\MyCRM\MyPlugins\obj\Debug\MyPlugins.pdb

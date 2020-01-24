@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
-using System.ServiceModel;
 
 namespace MyPlugins
 {
-    public class HelloWorld : IPlugin
+   public class RevenueRoundOff :IPlugin
     {
         public void Execute(IServiceProvider serviceProvider)
         {
@@ -25,7 +25,7 @@ namespace MyPlugins
                 context.InputParameters["Target"] is Entity)
             {
                 // Obtain the target entity from the input parameters.  
-                Entity entity = (Entity)context.InputParameters["Target"];
+                Entity account = (Entity)context.InputParameters["Target"];
 
 
 
@@ -39,19 +39,20 @@ namespace MyPlugins
                 {
                     // Plug-in business logic goes here.  
 
-                    context.SharedVariables.Add("Key1","Some Info");
+                    tracingService.Trace(context.Depth.ToString());
 
-                    //Read form attribute values
-                    string firstname = string.Empty;
-                    if (entity.Attributes.Contains("firstname")) {
-                         firstname = entity.Attributes["firstname"].ToString();
+                    //這裡不懂
+                    if (context.Depth > 1)
+                        return;
+
+                    //In case the user removes the value
+                    if ( account.Attributes["revenue"] != null ) {
+                        decimal revenue = ((Money)account.Attributes["revenue"]).Value;
+                        revenue = Math.Round(revenue,2);
+
+                        account.Attributes["revenue"]=new Money(revenue);
                     }
-                    //string firstname = entity.Attributes["firstname"].ToString();
-                    string lastname = entity.Attributes["lastname"].ToString();
-
-
-                    //Asign data to attribute.
-                    entity.Attributes.Add("description","Hello World "+firstname+lastname);
+                  
                 }
 
                 catch (FaultException<OrganizationServiceFault> ex)

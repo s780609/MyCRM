@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
-using System.ServiceModel;
 
 namespace MyPlugins
 {
-    public class HelloWorld : IPlugin
+   public class PreEntityImageDemo :IPlugin
     {
         public void Execute(IServiceProvider serviceProvider)
         {
@@ -39,19 +39,14 @@ namespace MyPlugins
                 {
                     // Plug-in business logic goes here.  
 
-                    context.SharedVariables.Add("Key1","Some Info");
+                    string modifiedBusinessPhone = entity.Attributes["telephone1"].ToString();
 
-                    //Read form attribute values
-                    string firstname = string.Empty;
-                    if (entity.Attributes.Contains("firstname")) {
-                         firstname = entity.Attributes["firstname"].ToString();
-                    }
-                    //string firstname = entity.Attributes["firstname"].ToString();
-                    string lastname = entity.Attributes["lastname"].ToString();
+                    //這裡不懂
+                    Entity preImage = (Entity)context.PreEntityImages["PreImage"];
+                    string oldBusinessPhone = entity.Attributes["telephone1"].ToString();
 
-
-                    //Asign data to attribute.
-                    entity.Attributes.Add("description","Hello World "+firstname+lastname);
+                    throw new InvalidPluginExecutionException("Phone Number is changed from " + oldBusinessPhone  + " to " + modifiedBusinessPhone);
+                
                 }
 
                 catch (FaultException<OrganizationServiceFault> ex)

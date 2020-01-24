@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk;
 using System.ServiceModel;
+using Microsoft.Xrm.Sdk;
 
 namespace MyPlugins
 {
-    public class HelloWorld : IPlugin
+    class AccountCreate :IPlugin
     {
         public void Execute(IServiceProvider serviceProvider)
         {
@@ -39,19 +39,8 @@ namespace MyPlugins
                 {
                     // Plug-in business logic goes here.  
 
-                    context.SharedVariables.Add("Key1","Some Info");
+                  
 
-                    //Read form attribute values
-                    string firstname = string.Empty;
-                    if (entity.Attributes.Contains("firstname")) {
-                         firstname = entity.Attributes["firstname"].ToString();
-                    }
-                    //string firstname = entity.Attributes["firstname"].ToString();
-                    string lastname = entity.Attributes["lastname"].ToString();
-
-
-                    //Asign data to attribute.
-                    entity.Attributes.Add("description","Hello World "+firstname+lastname);
                 }
 
                 catch (FaultException<OrganizationServiceFault> ex)
