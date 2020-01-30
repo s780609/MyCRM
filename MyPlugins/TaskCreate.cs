@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace MyPlugins
 {
+
     public class TaskCreate : IPlugin
     {
+        int tax;
+        public TaskCreate( string unSecureConfig,string secureConfig ) {
+            tax = Convert.ToInt32(unSecureConfig);
+        }
         public void Execute(IServiceProvider serviceProvider)
         {
             // Obtain the tracing service
@@ -35,11 +40,11 @@ namespace MyPlugins
                     (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
 
-                IOrganizationService adminservice = serviceFactory.CreateOrganizationService(new Guid(""));
+               // IOrganizationService adminservice = serviceFactory.CreateOrganizationService(new Guid(""));
 
                 try
                 {
-                    string key = context.SharedVariables["Key1"].ToString();
+                 //   string key = context.SharedVariables["Key1"].ToString();
                     
                     // Plug-in business logic goes here.  
 
@@ -61,7 +66,7 @@ namespace MyPlugins
                     taskRecord.Attributes.Add("regardingobjectid", contact.ToEntityReference());
 
                     Guid taskGuid = service.Create(taskRecord);
-                    adminservice.Create(taskRecord);
+                   // adminservice.Create(taskRecord);
                     tracingService.Trace("task created with Guid{0}", taskGuid.ToString());
                 }
 
